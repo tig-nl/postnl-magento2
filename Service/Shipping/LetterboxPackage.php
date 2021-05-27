@@ -113,7 +113,7 @@ class LetterboxPackage
         }
 
         $productCollection = $this->productCollectionFactory->create();
-        $productCollection->addFieldToFilter('entity_id', ['in => ?', array_keys($productIds)]);
+        $productCollection->addFieldToFilter('entity_id', ['in' => array_keys($productIds)]);
         $productCollection->addAttributeToSelect('postnl_max_qty_letterbox');
 
         foreach ($productCollection->getItems() as $product) {

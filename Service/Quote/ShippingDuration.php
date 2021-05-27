@@ -126,7 +126,7 @@ class ShippingDuration
         }
 
         $productCollection = $this->productCollectionFactory->create();
-        $productCollection = $productCollection->addFieldToFilter('entity_id', ['in => ?', $productIds]);
+        $productCollection = $productCollection->addFieldToFilter('entity_id', ['in' => $productIds]);
 
         return $productCollection->getItems();
     }
