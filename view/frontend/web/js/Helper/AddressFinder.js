@@ -81,22 +81,24 @@ define([
         }
 
         // Country is required to determine which fields are used.
-        uiRegistry.get('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.country_id', function (countryField) {
+        uiRegistry.get('dataScope = shippingAddress.country_id', function (countryField) {
             address.country = countryField.value();
         });
 
         var RegistryFields = [
-            'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.firstname',
-            'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.lastname',
-            'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.street.0'
+            'dataScope = shippingAddress.firstname',
+            'dataScope = shippingAddress.lastname',
+            'dataScope = shippingAddress.street.0'
         ];
 
-        if ((address.country === 'NL' && window.checkoutConfig.shipping.postnl.is_postcodecheck_active) || (window.checkoutConfig.postcode !== undefined && window.checkoutConfig.postcode.postcode_active)) {
-            RegistryFields.push('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.postcode-field-group.field-group.postcode');
-            RegistryFields.push('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.postcode-field-group.field-group.housenumber');
+        if ((address.country === 'NL' && window.checkoutConfig.shipping.postnl.is_postcodecheck_active)
+            || (window.checkoutConfig.postcode !== undefined && window.checkoutConfig.postcode.postcode_active)
+        ) {
+            RegistryFields.push('datascope = shippingAddress.postcode');
+            RegistryFields.push('dataScope = shippingAddress.custom_attributes.tig_housenumber');
         } else {
-            RegistryFields.push('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.postcode');
-            uiRegistry.get('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.street.1', function (houseNumberField) {
+            RegistryFields.push('dataScope = shippingAddress.postcode');
+            uiRegistry.get('dataScope = shippingAddress.street.1', function (houseNumberField) {
                 address.housenumber = houseNumberField.value();
             });
         }
@@ -118,7 +120,7 @@ define([
         });
 
         // Some merchants disable the telephone field. Adding this to the previous part will stop the entire get function
-        uiRegistry.get('checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.telephone', function (telephoneField) {
+        uiRegistry.get('dataScope = shippingAddress.telephone', function (telephoneField) {
             address.telephone = telephoneField.value();
         });
 
